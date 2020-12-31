@@ -12,7 +12,7 @@ resource "aws_lambda_function" "lambda_tf" {
   #filename is lambda
   #function_name is lambda_handler
   handler       = "lambda.lambda_handler"
-  runtime       = "python2.7"
+  runtime       = "python3.6"
 
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
@@ -60,7 +60,7 @@ POLICY
 #cloudwatch log group for lambda logging
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "/aws/lambda/${aws_lambda_function.lambda_tf.function_name}"
-  retention_in_days = 14
+  retention_in_days = 7
   depends_on = ["aws_lambda_function.lambda_tf"]
 }
 
