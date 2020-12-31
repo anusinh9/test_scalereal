@@ -42,7 +42,7 @@ We will be using remote backend for our configuration. If you open the backend.t
         access_key = "AKIAXHUWH2637XZGONJ3"
         secret_key = "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"
     }
-}
+    }
  #from version 0.11 and later interpolation can be ignored we can also use "AWS_ACCESS_KEY_ID" but for versions compatibility we will stick with it as during terraform plan it will throw only warnings but no errors.
  
  ⚠️  Note : However to setup the remote backend on S3 bucket we first need to have the required pre-requisites in place (S3 bucket , dynamodb table for state lock ) and thus we use the local backend for the first time to spin up the infrastructure we require for remote backend which in this is S3 bucket. You can refer to "S3-remote-backend.tf"
@@ -60,10 +60,10 @@ We will be using remote backend for our configuration. If you open the backend.t
 
      }
 
- }
-}
+     }
+     }
 
-resource "aws_dynamodb_table" "tfs-locks" {
+      resource "aws_dynamodb_table" "tfs-locks" {
     name         = "tfs-state-locking1"
     billing_mode = "PAY_PER_REQUEST"
     hash_key     = "LockID"
@@ -72,9 +72,9 @@ resource "aws_dynamodb_table" "tfs-locks" {
       type       = "S"
     }
 
-}
+      }
 
-resource "aws_dynamodb_table" "records-table" {
+     resource "aws_dynamodb_table" "records-table" {
     name         = "records"
     billing_mode = "PAY_PER_REQUEST"
     hash_key     = "UserID"
@@ -83,13 +83,14 @@ resource "aws_dynamodb_table" "records-table" {
       type       = "S"
     }
 
-}
+     }
 
-provider "aws" {
-  region     = "${AWS_DEFAULT_REGION}"
-  access_key = "${AWS_ACCESS_KEY_ID}"
-  secret_key = "${AWS_SECRET_ACCESS_KEY}"
-}
+       rovider "aws" {
+        region     = "${AWS_DEFAULT_REGION}"
+        access_key = "${AWS_ACCESS_KEY_ID}"
+        secret_key = "${AWS_SECRET_ACCESS_KEY}"
+        }
+       
 
 💡 The additional dynamodb table " records" being provisioned in above code is for later use by lambda functions hence we will discuss about it later.
 
@@ -99,6 +100,8 @@ Once the above code has been dowloaded first setup the remote backend infrastruc
 
     $ terraform init
     $ terraform apply -auto-approve
+
+
 Post this we would successfully spinned up 
 1 - S3 bucket for storing remote backends
 2 - 2 Dynamodb Table ( tfs-state-locking1 - which will be used for locking remote state , records - which will use later to store csv data fetched from S3 buckets into dynamodb post lambda trigger) 
