@@ -1,4 +1,4 @@
-# test_scalereal
+⚡️ test_scalereal ( A project to provision Aws resources using terraform )
 The repo is created to store source code for terraform required as part of spinning INFRA for problem solving as below steps
 
 👨‍💻 Preparation
