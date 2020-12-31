@@ -5,7 +5,7 @@ terraform {
         region = "ap-south-1"
         dynamodb_table = "tfs-state-locking1"
         encrypt = true
-        access_key = "AKIAXHUWH2637XZGONJ3"
-        secret_key = "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"
+        access_key = "${AWS_ACCESS_KEY_ID}"
+        secret_key = "${AWS_SECRET_ACCESS_KEY}"
     }
 }
