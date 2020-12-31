@@ -24,8 +24,8 @@ First of all, download the source code
 
 For the sake for simplicty if you are not using AWS CLI, you can use the the access key and secret access key provided by AMAZON as environment variables to prevent it from using hard-coded secrets. Find below examples (these secrets are dummy and wont work in real life)
 
-    $ export AWS_ACCESS_KEY_ID="AKIAXHUWH2637XZGONJ33"
-    $ export AWS_SECRET_ACCESS_KEY="WKp6DFgej77jje9U0jMT4a7ceD9r66SlgbsTRmUabcd"
+    $ export AWS_ACCESS_KEY_ID="your access key"
+    $ export AWS_SECRET_ACCESS_KEY="your secret key"
     $ export AWS_DEFAULT_REGION="ap-south-1"  #ap-south-1 (Mumbai region has been selected to avoid the latency)
     
 💡 Pro Tip : If you have AWS CLI configured locally, Terraform can use that configuration too for authentication with AWS which is more robust as we have options of selection of different profiles for authentication.
@@ -39,8 +39,8 @@ We will be using remote backend for our configuration. If you open the backend.t
         region = "ap-south-1"
         dynamodb_table = "tfs-state-locking1"
         encrypt = true
-        access_key = "AKIAXHUWH2637XZGONJ3"
-        secret_key = "WKp6DFgej77jje9U0jMT4a7c+eD9r66SlgbsTRmU"
+        access_key = "your access
+        secret_key = "your secret key
     }
     }
  #from version 0.11 and later interpolation can be ignored we can also use "AWS_ACCESS_KEY_ID" but for versions compatibility we will stick with it as during terraform plan it will throw only warnings but no errors.
