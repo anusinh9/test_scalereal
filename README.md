@@ -1,3 +1,4 @@
+
 ⚡️ test_scalereal ( A project to provision Aws resources using terraform )
 The repo is created to store source code for terraform required as part of spinning INFRA for problem solving as below steps
 
@@ -39,8 +40,8 @@ We will be using remote backend for our configuration. If you open the backend.t
         region = "ap-south-1"
         dynamodb_table = "tfs-state-locking1"
         encrypt = true
-        access_key = "your access
-        secret_key = "your secret key
+        access_key = "your access"  #Ignore if you are using environment variables or explicityly declaring it in provider.tf
+        secret_key = "your secret key"
     }
     }
  #from version 0.11 and later interpolation can be ignored we can also use "AWS_ACCESS_KEY_ID" but for versions compatibility we will stick with it as during terraform plan it will throw only warnings but no errors.
@@ -103,7 +104,7 @@ Once the above code has been dowloaded first setup the remote backend infrastruc
 
 
 Post this we would successfully spinned up 
-1 - S3 bucket for storing remote backends
+1 - S3 bucket for storing remote backends -  tfs-state-anubhav.demo2
 2 - 2 Dynamodb Table ( tfs-state-locking1 - which will be used for locking remote state , records - which will use later to store csv data fetched from S3 buckets into dynamodb post lambda trigger) 
 
 Now we would run the backend.tf to change the local backend to remote backed but beware for any change in backend we need to get it initialize again using " terraform init"
@@ -112,14 +113,15 @@ Now we would run the backend.tf to change the local backend to remote backed but
 🧐 Testing
 Now we have resources we need to provision to achieve our csv2dynamodb we have few files specifically for this namely (lambda.tf - for provisioning / lambda.py - for lambda function which uses python as its runtime)
 Upload a sample .csv file (attached in this repo for sample on S3 via aws cli or GUI)
+     
      aws s3 cp sample_csv/records.csv s3://anubhav-bucketforlambdatrigger/records.csv  (the hard way)  or via accessing the S3 GUI and uploading it.
+     aws dynamodb scan --table-name records (the hard way) or just search for DynamoDB in aws services portal and check for items in table.
     
-    aws dynamodb scan --table-name records (the hard way) or just search for DynamoDB in aws services portal and check for items in table.
-    
-    You will be see teh data entered into csv form in now into table format.
+    You will be see the data entered into csv form in now into table format.
     
 🌐 Working with the REST API
 
-However I'm still working to check and create api endpoints for remote operations (create,update,read and delete on dynamodb) hence I am combining it in a different folder the source code that I've managed to get and write for the api endpoints and segregate it from other code in repo just to make sure the rest of the codes works.
+However I'm still working to check and create api endpoints for remote operations (create,update,read and delete on dynamodb) hence I am combining it in a different folder the source code that I've managed to get and write for the api endpoints in this stipulated time and segregate it from other code in repo just to make sure the rest of the codes works.
+
 📝 Note: The current projects support infrstructure provisioning using terraform and lambda triggers associated with S3 buckets reads the event which is based on "s3:ObjectCreated:*" and  splits the data and write it to dynamoDB.
 
