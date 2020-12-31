@@ -120,6 +120,6 @@ Upload a sample .csv file (attached in this repo for sample on S3 via aws cli or
     
 🌐 Working with the REST API
 
-However I'm still working to check and create api endpoints for remote operations (create,update,read and delete on dynamodb) hence I am combining it in a different folder in this repo just to make sure the rest of the codes works.
+However I'm still working to check and create api endpoints for remote operations (create,update,read and delete on dynamodb) hence I am combining it in a different folder the source code that I've managed to get and write for the api endpoints and segregate it from other code in repo just to make sure the rest of the codes works.
 📝 Note: The current projects support infrstructure provisioning using terraform and lambda triggers associated with S3 buckets reads the event which is based on "s3:ObjectCreated:*" and  splits the data and write it to dynamoDB.
 
